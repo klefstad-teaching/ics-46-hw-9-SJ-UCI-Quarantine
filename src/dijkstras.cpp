@@ -3,14 +3,14 @@
 vector<int> dijkstra_shortest_path(const Graph& graph, int src, vector<int>& prev) {
 	vector<int> dist(graph.numVertices, INF);
 	vector<bool> visited(graph.numVertices, false);
-	dist[src] = 0;
 	auto cmp = [&](auto& a, auto& b) {
-		return dist[a] < dist[b];
+		return a.second < b.second;
 	};
-	priority_queue<int, vector<int>, decltype(cmp)> q(cmp);
-	q.push(src);
+	priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(cmp)> q(cmp);
+	dist[src] = 0;
+	q.push({src, 0});
 	while(!q.empty()) {
-		int curr = q.top();
+		int curr = q.top().first;
 		q.pop();
 		if(!visited[curr]) {
 			visited[curr] = true;
@@ -19,7 +19,7 @@ vector<int> dijkstra_shortest_path(const Graph& graph, int src, vector<int>& pre
 				if(d < dist[e.dst]) {
 					dist[e.dst] = d;
 					prev[e.dst] = curr;
-					q.push(e.dst);
+					q.push({e.dst, d});
 				}
 			}
 		}
