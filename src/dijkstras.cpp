@@ -4,7 +4,6 @@ vector<int> dijkstra_shortest_path(const Graph& graph, int src, vector<int>& pre
 	vector<int> dist(graph.numVertices, INF);
 	vector<bool> visited(graph.numVertices, false);
 	dist[src] = 0;
-	visited[src] = true;
 	auto cmp = [&](auto& a, auto& b) {
 		return dist[a] < dist[b];
 	};
