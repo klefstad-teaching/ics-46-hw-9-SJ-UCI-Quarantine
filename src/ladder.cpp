@@ -32,6 +32,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 		q.pop();
 		for(const string& s : word_list) {
 			if(is_adjacent(v.back(), s) && !visited.count(s)) {
+				visited.insert(s);
 				vector<string> v2 = v;
 				v2.push_back(s);
 				if(s == end_word) return v2;
