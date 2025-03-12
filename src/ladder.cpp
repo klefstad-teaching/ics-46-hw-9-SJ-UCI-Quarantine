@@ -11,8 +11,8 @@ bool edit_distance_within(const string& s1, const string& s2, int d) {
 	for(int i = 0; i < a; ++i) {
 		for(int j = 0; j < b; ++j) {
 			int& c = dp[i + 1][j + 1];
-			c = min(dp[i - 1][j], dp[i][j - 1]) + 1;
-			if(s1[i] == s2[j]) c = min(c, dp[i - 1][j - 1]);
+			c = min(dp[i][j + 1], dp[i + 1][j]) + 1;
+			if(s1[i - 1] == s2[j - 1]) c = min(c, dp[i][j]);
 		}
 	}
 	return dp[a][b] <= d;
