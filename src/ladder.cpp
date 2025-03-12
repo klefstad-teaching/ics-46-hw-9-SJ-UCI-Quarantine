@@ -4,15 +4,17 @@ void error(string word1, string word2, string msg) {
 	cerr << msg << ' ' << word1 << ' ' << word2 << endl;
 }
 
-bool min(int a, int b) { return a > b ? a : b; }
+inline int min(int a, int b) { return a < b ? a : b; }
 bool edit_distance_within(const string& s1, const string& s2, int d) {
 	int a = s1.size(), b = s2.size();
-	vector<vector<int>> dp(a + 1, vector<int>(b + 1, -1));
+	vector<vector<int>> dp(a + 1, vector<int>(b + 1));
+	for(int i = 0; i <= a; ++i) dp[i][0] = i;
+	for(int i = 0; i <= b; ++i) dp[0][i] = i;
 	for(int i = 0; i < a; ++i) {
 		for(int j = 0; j < b; ++j) {
 			int& c = dp[i + 1][j + 1];
 			c = min(dp[i][j + 1], dp[i + 1][j]) + 1;
-			if(s1[i - 1] == s2[j - 1]) c = min(c, dp[i][j]);
+			c = min(c, dp[i][j] + (s1[i] == s2[j] ? 0 : 1));
 		}
 	}
 	return dp[a][b] <= d;

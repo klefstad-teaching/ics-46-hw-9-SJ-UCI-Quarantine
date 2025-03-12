@@ -4,7 +4,7 @@ vector<int> dijkstra_shortest_path(const Graph& graph, int src, vector<int>& pre
 	vector<int> dist(graph.numVertices, INF);
 	vector<bool> visited(graph.numVertices, false);
 	auto cmp = [&](auto& a, auto& b) {
-		return a.second < b.second;
+		return a.second > b.second;
 	};
 	priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(cmp)> q(cmp);
 	dist[src] = 0;
