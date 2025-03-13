@@ -32,7 +32,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 	set<string> visited;
 	visited.insert(begin_word);
 	while(!q.empty()) {
-		vector<string> v = q.front();
+		vector<string> v = move(q.front());
 		q.pop();
 		for(const string& s : word_list) {
 			if(is_adjacent(v.back(), s) && !visited.count(s)) {
@@ -40,7 +40,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 				vector<string> v2 = v;
 				v2.push_back(s);
 				if(s == end_word) return v2;
-				q.push(v2);
+				q.push(move(v2));
 			}
 		}
 	}
@@ -56,8 +56,12 @@ void load_words(set<string>& word_list, const string& name) {
 }
 
 void print_word_ladder(const vector<string>& ladder) {
-	for(const string& s : ladder) cout << s << ' ';
-	cout << endl;
+	if(ladder.empty()) cout << "No word ladder found." << endl;
+	else {
+		cout << "Word ladder found: ";
+		for(const string& s : ladder) cout << s << ' ';
+		cout << endl;
+	}
 }
 
 #define my_assert(e) {cout << #e << ((e) ? " passed": " failed") << endl;}
