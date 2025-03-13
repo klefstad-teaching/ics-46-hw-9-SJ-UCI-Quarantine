@@ -5,8 +5,10 @@ void error(string word1, string word2, string msg) {
 }
 
 inline int min(int a, int b) { return a < b ? a : b; }
+inline int abs(int a) { return a < 0 ? -a : a; }
 bool edit_distance_within(const string& s1, const string& s2, int d) {
 	int a = s1.size(), b = s2.size();
+	if(abs((int)s1.size() - (int)s2.size()) > d) return false;
 	vector<vector<int>> dp(a + 1, vector<int>(b + 1));
 	for(int i = 0; i <= a; ++i) dp[i][0] = i;
 	for(int i = 0; i <= b; ++i) dp[0][i] = i;
@@ -58,7 +60,15 @@ void print_word_ladder(const vector<string>& ladder) {
 	cout << endl;
 }
 
+#define my_assert(e) {cout << #e << ((e) ? " passed": " failed") << endl;}
 void verify_word_ladder() {
+    set<string> word_list;
+    load_words(word_list, "src/words.txt");
+    my_assert(generate_word_ladder("cat", "dog", word_list).size() == 4);
+    my_assert(generate_word_ladder("marty", "curls", word_list).size() == 6);
+    my_assert(generate_word_ladder("code", "data", word_list).size() == 6);
+    my_assert(generate_word_ladder("work", "play", word_list).size() == 6);
+    my_assert(generate_word_ladder("sleep", "awake", word_list).size() == 8);
+    my_assert(generate_word_ladder("car", "cheat", word_list).size() == 4);
 }
-
 
