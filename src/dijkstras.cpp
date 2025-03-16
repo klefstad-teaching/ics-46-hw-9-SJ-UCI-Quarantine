@@ -35,7 +35,11 @@ vector<int> extract_shortest_path(const vector<int>&, const vector<int>& prev, i
 	}
 	path.push_back(dst);
 	int n = path.size(), half = n / 2;
-	for(int i = 0; i < half; ++i) swap(path[i], path[n - 1 - i]);
+	for(int i = 0; i < half; ++i) {
+		int t = path[i];
+		path[i] = path[n - 1 - i];
+		path[n - 1 - i] = t;
+	}
 	return path;
 }
 

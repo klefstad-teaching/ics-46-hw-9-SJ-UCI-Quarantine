@@ -32,7 +32,7 @@ bool is_adjacent(const string& word1, const string& word2) {
 				else flag = true;
 			}
 		}
-		return flag;
+		return true;
 	}else if(abs(s1 - s2) == 1) {
 		int i = 0, j = 0, m = min(s1, s2);
 		while(i < m && word1[i] == word2[i]) ++i;
