@@ -15,11 +15,13 @@ vector<int> dijkstra_shortest_path(const Graph& graph, int src, vector<int>& pre
 		if(!visited[curr]) {
 			visited[curr] = true;
 			for(const Edge& e : graph[curr]) {
-				int d = dist[curr] + e.weight;
-				if(d < dist[e.dst]) {
-					dist[e.dst] = d;
-					prev[e.dst] = curr;
-					q.push({e.dst, d});
+				if(!visited[e.dst]) {
+					int d = dist[curr] + e.weight;
+					if(d < dist[e.dst]) {
+						dist[e.dst] = d;
+						prev[e.dst] = curr;
+						q.push({e.dst, d});
+					}
 				}
 			}
 		}
