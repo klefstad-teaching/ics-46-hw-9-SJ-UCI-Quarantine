@@ -8,7 +8,7 @@ inline int min(int a, int b) { return a < b ? a : b; }
 inline int abs(int a) { return a < 0 ? -a : a; }
 bool edit_distance_within(const string& s1, const string& s2, int d) {
 	int a = s1.size(), b = s2.size();
-	if(abs((int)s1.size() - (int)s2.size()) > d) return false;
+	if(abs(a - b) > d) return false;
 	vector<vector<int>> dp(a + 1, vector<int>(b + 1));
 	for(int i = 0; i <= a; ++i) dp[i][0] = i;
 	for(int i = 0; i <= b; ++i) dp[0][i] = i;
@@ -23,7 +23,23 @@ bool edit_distance_within(const string& s1, const string& s2, int d) {
 }
 
 bool is_adjacent(const string& word1, const string& word2) {
-	return edit_distance_within(word1, word2, 1);
+	int s1 = word1.size(), s2 = word2.size();
+	if(s1 == s2) {
+		bool flag = false;
+		for(int i = 0; i < s1; ++i) {
+			if(word1[i] != word2[i]) {
+				if(flag) return false;
+				else flag = true;
+			}
+		}
+		return flag;
+	}else if(abs(s1 - s2) == 1) {
+		int i = 0, j = 0, m = min(s1, s2);
+		while(i < m && word1[i] == word2[i]) ++i;
+		while(j < m && word1[s1 - 1 - j] == word2[s2 - 1 - j]) ++j;
+		return i + j >= m; 
+	}
+	return false;
 }
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list) {
