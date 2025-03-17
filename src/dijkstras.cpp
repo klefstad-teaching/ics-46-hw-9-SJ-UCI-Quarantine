@@ -44,6 +44,7 @@ vector<int> extract_shortest_path(const vector<int>&, const vector<int>& prev, i
 		path[i] = path[n - 1 - i];
 		path[n - 1 - i] = t;
 	}
+	path.push_back(-1);
 	return path;
 }
 
