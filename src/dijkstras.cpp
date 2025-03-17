@@ -3,6 +3,7 @@
 vector<int> dijkstra_shortest_path(const Graph& graph, int src, vector<int>& prev) {
 	vector<int> dist(graph.numVertices, INF);
 	vector<bool> visited(graph.numVertices, false);
+	prev = vector<int>(graph.numVertices, -1);
 	auto cmp = [&](auto& a, auto& b) {
 		return a.second > b.second;
 	};
@@ -30,7 +31,6 @@ vector<int> dijkstra_shortest_path(const Graph& graph, int src, vector<int>& pre
 }
 
 vector<int> extract_shortest_path(const vector<int>& dist, const vector<int>& prev, int dst) {
-	if(dist[dst] == INF) return {};
 	vector<int> path;
 	while(prev[dst] != -1) {
 		path.push_back(dst);
