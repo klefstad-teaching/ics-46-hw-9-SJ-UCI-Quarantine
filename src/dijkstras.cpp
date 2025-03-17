@@ -29,22 +29,20 @@ vector<int> dijkstra_shortest_path(const Graph& graph, int src, vector<int>& pre
 	return dist;
 }
 
-vector<int> extract_shortest_path(const vector<int>&, const vector<int>& prev, int dst) {
+vector<int> extract_shortest_path(const vector<int>& dist, const vector<int>& prev, int dst) {
 	vector<int> path;
-	if(prev[dst] != -1) {
-		while(prev[dst] != -1) {
-			path.push_back(dst);
-			dst = prev[dst];
-		}
+	while(prev[dst] != -1) {
 		path.push_back(dst);
+		dst = prev[dst];
 	}
+	path.push_back(dst);
+	if(dist[dst] != 0) return {};
 	int n = path.size(), half = n / 2;
 	for(int i = 0; i < half; ++i) {
 		int t = path[i];
 		path[i] = path[n - 1 - i];
 		path[n - 1 - i] = t;
 	}
-	path.push_back(-1);
 	return path;
 }
 
